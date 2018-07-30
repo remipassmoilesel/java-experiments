@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
+
+<head>
+    <title>Spring MVC Internationalization i18n Example</title>
+</head>
+<body>
+
+<h1>Spring MVC Internationalization i18n Example</h1>
+
+Language : <a href="?lang=en">English</a> | <a href="?lang=fr">French</a>
+
+<p th:text="#{locale}"></p>
+<p th:text="#{welcome.message('Jean claude')}"></p>
+<p th:text="#{welcome.greeting('08:00')}"></p>
+
+
+</body>
+</html>

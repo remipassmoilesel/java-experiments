@@ -1,0 +1,2 @@
+http://memorynotfound.com/spring-mvc-internationalization-i18n-example/
+http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#using-thtext-and-externalizing-text
