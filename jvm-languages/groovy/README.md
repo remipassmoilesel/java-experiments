@@ -1,0 +1,3 @@
+# Groovy experiments
+
+Various experiments on Groovy, in order to wait until I can finally touch a computer again and stop hacking LinuxDeploy .....

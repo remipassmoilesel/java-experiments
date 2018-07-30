@@ -1,0 +1,55 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.6.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+        classpath 'com.bmuschko:gradle-izpack-plugin:2.1'
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'com.bmuschko.izpack'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = "org.remipassmoilesel.javafxexperiments.JavafxExperimentsApplication"
+applicationDefaultJvmArgs = ["-Dgreeting.language=en"]
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.codehaus.groovy:groovy')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    izpack('org.codehaus.izpack:izpack-standalone-compiler:4.3.4')
+}
+
+shadowJar {
+	baseName = 'javafx-experiments'
+	version = '1.0.0'
+}
+
+izpack {
+    installFile = file('src/main/resources/installer/install.xml')
+    baseDir = file('build/')
+    outputFile = file("$buildDir/distributions/izpack.jar")
+    compression = 'deflate'
+    compressionLevel = 5
+//    appProperties = ['app.group': 'Griffon', 'app.name': 'griffon', 'app.title': 'Griffon',
+//                     'app.version': version, 'app.subpath': "Griffon-$version"]
+}

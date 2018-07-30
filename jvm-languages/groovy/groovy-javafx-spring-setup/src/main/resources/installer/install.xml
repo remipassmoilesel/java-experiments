@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<installation version="1.0">
+    <info>
+        <appname>JavaFX-experiments</appname>
+        <appversion>1.0.0</appversion>
+        <authors>
+            <author name="Remi Passmoilesel" email="remi.passmoilesel@gmail.com"/>
+        </authors>
+        <url>http://site.com</url>
+    </info>
+
+    <guiprefs width="640" height="480" resizable="yes"/>
+
+    <locale>
+        <langpack iso3="eng"/>
+        <langpack iso3="fra"/>
+    </locale>
+
+    <resources>
+        <res id="installer.langsel.img" src="resources/main/images/logo.png" />
+        <res id="Installer.image" src="resources/main/images/logo.png" />
+        <res id="LicencePanel.licence" src="resources/main/installer/LICENSE.txt"/>
+        <res id="InfoPanel.info" src="resources/main/installer/README.md"/>
+    </resources>
+
+    <panels>
+        <panel classname="HelloPanel"/>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+
+    <packs>
+        <pack name="JavaFX-Experiments" required="yes">
+            <description>JavaFX Experiments main package</description>
+            <file src="distributions/javafx-experiments-0.0.1-SNAPSHOT.zip" targetdir="$INSTALL_PATH"
+                  unpack="true"/>
+        </pack>
+    </packs>
+
+</installation>
