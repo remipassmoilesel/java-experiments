@@ -1,0 +1,72 @@
+/* Simple +/-/* expression language; parser evaluates constant expressions on the fly*/
+import java_cup.runtime.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.InputStream;
+
+parser code {:
+
+    protected List<Integer> results = new ArrayList<Integer>();
+	private java.util.HashMap<String, Integer> vars = new java.util.HashMap<String, Integer>();
+
+    public static void main(String args[]) throws Exception {
+        SymbolFactory sf = new ComplexSymbolFactory();
+        if (args.length==0)
+            new Parser(new Scanner(System.in,sf),sf).parse();
+        else
+            new Parser(new Scanner(new java.io.FileInputStream(args[0]),sf),sf).parse();
+    }
+       
+    public static List<Integer> getResults(InputStream iStream) throws Exception {
+        SymbolFactory sf = new ComplexSymbolFactory();
+        Parser p = new Parser(new Scanner(iStream,sf),sf);
+        
+        Symbol s = p.parse();
+        return p.results;
+    }
+:}
+
+/* Terminals (tokens returned by the scanner). */
+terminal            SEMI, PLUS, MINUS, TIMES, LPAREN, RPAREN, SET, AFFECT, VAR_NAME;
+terminal Integer    NUMBER;        // our scanner provides numbers as integers
+
+/* Non terminals */
+non terminal            expr_list;
+non terminal Integer    expr;      // used to store evaluated subexpressions
+non terminal            affectation;
+non terminal            prog;
+non terminal            affs;
+
+/* Precedences */
+precedence left PLUS, MINUS;
+precedence left TIMES;
+
+/* The grammar rules */
+prog ::= affs expr_list
+			;
+			
+affs ::= affs affectation 
+		| affectation
+		;
+			
+affectation ::= SET VAR_NAME:n AFFECT expr:e SEMI {: vars.put((String) n, e); :}
+			;
+			
+expr_list ::= expr_list expr:e SEMI         {: System.out.println("\n Résultat de l'opération: " + e); :}
+            | expr:e SEMI                   {: System.out.println("\n Résultat de l'opération: " + e); :}
+			;
+			
+expr      ::=  expr:e1 PLUS  expr:e2        {: RESULT = e1+e2;       	:}
+             | expr:e1 MINUS expr:e2        {: RESULT = e1-e2;       	:}
+             | expr:e1 TIMES expr:e2        {: RESULT = e1*e2;       	:}
+             | MINUS expr:e                 {: RESULT = -e;          	:}
+  	         | LPAREN expr:e RPAREN	    	{: RESULT = e;           	:}
+             | NUMBER:n	                    {: RESULT = n;           	:}
+             | VAR_NAME:n					{: RESULT = vars.get(n); :}	
+             ;
+             
+             
+             
+             
+             
+             

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Lancement de JFlex / CUP"
+
+jflex scanner.lex
+java -jar java-cup-11b.jar -interface -parser Parser calc.cup
+javac -cp java-cup-11b-runtime.jar:. *.java
+java -cp java-cup-11b-runtime.jar:. Parser$CUP$parser$actions < inputcalc

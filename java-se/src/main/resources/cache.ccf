@@ -1,0 +1,15 @@
+
+# AVAILABLE AUXILIARY CACHES
+jcs.auxiliary.DC=org.apache.commons.jcs.auxiliary.disk.indexed.IndexedDiskCacheFactory
+jcs.auxiliary.DC.attributes=org.apache.commons.jcs.auxiliary.disk.indexed.IndexedDiskCacheAttributes
+# User dir as path: jcs.auxiliary.DC.attributes.DiskPath=${user.dir}/jcs_swap
+jcs.auxiliary.DC.attributes.DiskPath=data/jcs_swap
+# queue where elements wait before be written in disk storage
+jcs.auxiliary.DC.attributes.MaxPurgatorySize=100000
+jcs.auxiliary.DC.attributes.MaxKeySize=1000000
+jcs.auxiliary.DC.attributes.OptimizeAtRemoveCount=300000
+jcs.auxiliary.DC.attributes.ShutdownSpoolTimeLimit=60
+
+# DEFAULT CACHE
+# Get parameters from Disk Cache (DC)
+jcs.default=DC

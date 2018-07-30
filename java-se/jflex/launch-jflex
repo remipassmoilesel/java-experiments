@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo
+echo "# Lancement du fichier $1.lex et de la classe $1 avec comme données $2."
+echo
+
+echo 
+echo "# JFlex..."
+echo
+~/jflex-1.6.1/bin/jflex $1.lex
+
+echo 
+echo "# javac"
+echo
+javac $1.java 
+
+echo 
+echo "# java..."
+echo
+java $1 $2

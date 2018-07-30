@@ -1,0 +1,12 @@
+.idea
+data/huge*
+data/ehcache
+data/jcs_swap
+target/
+search/
+tiff-trials/
+communes-france/
+huge-image.jpg
+*.iml
+data/arbitrary-pictures-2
+data/toStitch

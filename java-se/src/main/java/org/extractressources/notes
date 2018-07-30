@@ -1,0 +1,7 @@
+Filtrer les dossiers et filtrer les fichiers
+Créer un dossier et y sauvegarder les inforamtions extraites de tika importantes: documents odt, xls, images ... 
+Ajouter une interface graphique simple: montre moi ce que tu sais ?
+Poser des questions pour guider la recherche ? Nom, prénom, année de naissance approximative, ...
+Exporter SQlite (voir commande echo '.dump' | sqlite3 your_sqlite.db > your_sqlite_text.txt)
+Organiser le tri de l'esnemble des résultats
+Suivre les liens ? Consulter historiques ?

@@ -1,0 +1,29 @@
+Exemple de Wikipedia, pour aller de A et J
+https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/DijkstraBis01.svg/350px-DijkstraBis01.svg.png
+
+Conserver tous les chemins dans un ensemble trié croissant.
+
+D'abord créer un chemin de un element (source)
+[A] 0  ([sommet1,sommet2,...] longueur)
+
+Enlever A puis appeler A.etendre() et ajouter le résultat:
+[A,B] 85
+[A,C] 217
+[A,E] 173
+
+Enlever le plus petit puis l'étendre et ajouter le résultat:
+[A,B] 85
+[A,E] 173
+[A,C] 217
+
+Enlever le plus petit puis l'étendre et ajouter le résultat:
+[A, B, F] 165
+[A, E] 173
+[A, C] 217
+
+Enlever le plus petit puis l'étendre et ajouter le résultat:
+....
+
+S'arrêter lorsque J est dans le premier petit chemin.
+
+

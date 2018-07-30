@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_79" class="java.beans.XMLDecoder">
+ <object class="org.learn.messageHandlers.DialogEntity" id="DialogEntity0">
+  <void property="keywords">
+   <void method="add">
+    <string>petasse</string>
+   </void>
+   <void method="add">
+    <string>bouge</string>
+   </void>
+   <void method="add">
+    <string>cul</string>
+   </void>
+  </void>
+  <void property="response">
+   <string>Whooo Whooo Whooo, garde la pêche mec c&apos;est la zone ici !</string>
+  </void>
+ </object>
+</java>

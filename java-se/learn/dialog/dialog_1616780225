@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_79" class="java.beans.XMLDecoder">
+ <object class="org.learn.messageHandlers.DialogEntity" id="DialogEntity0">
+  <void property="keywords">
+   <void method="add">
+    <string>salut</string>
+   </void>
+  </void>
+  <void property="response">
+   <string>Salut !</string>
+  </void>
+ </object>
+</java>

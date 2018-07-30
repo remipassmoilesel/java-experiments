@@ -1,0 +1,77 @@
+Structure d'un fichier jflex
+----------------------------
+
+Code de l'utilisateur
+%%
+Options et déclarations de macros
+%%
+Règles lexicales
+
+Essai.lex
+---------
+
+%%
+%class Essai
+%standalone
+integer=[0-9]+
+%%
+ {integer} {System.out.println("ENTIER");}
+ "->" {System.out.println("FLECHE");}
+
+Analyser un fichier
+-------------------
+
+Puis faites le traiter par jflex (en ligne de commande):
+jflex essai.lex
+
+Ceci genère un fichier Lexi.java qu'il faut compiler pour pouvoir générer l'analyseur :
+javac Lexi.java
+
+Créez un fichier de test inputfile avec quelques entiers et «flèches » et analysez-le avec :
+java Lexi inputfile
+
+Récupérer le texte du lexème
+----------------------------
+
+%%
+%class Lexi
+%standalone
+entier=[0-9]+
+%%
+{entier} {System.out.println("ENTIER="+yytext());}
+"->" {System.out.println("FLECHE");}
+
+Insérer du code Java
+--------------------
+
+%%
+%class Exercice4
+%standalone
+%{
+	private static test = 0;
+	{
+		System.out.println("Début");
+	}
+%}
+%{eof
+		System.out.println("Fin");
+%eof}
+	email=[0-9a-zA-Z\.-]+[@][0-9a-zA-Z\.-]+
+	other=.
+%%
+ {email} {System.out.println("Email: " + yytext());}
+ {other} {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
