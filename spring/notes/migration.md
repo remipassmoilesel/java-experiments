@@ -1,4 +1,11 @@
-# Migration de configuration
+# Migration 
+
+## Guide Spring boot 2.0
+
+https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide
+
+
+## Verification de configuration
 
 Il est possible d'ajouter ce paquet:
     
