@@ -15,6 +15,8 @@ import java.util.UUID;
 
 public class AxonMain {
 
+    // See: https://www.baeldung.com/axon-cqrs-event-sourcing
+
     public static void main(String[] args) {
 
         AxonMain axonMain = new AxonMain();
@@ -33,16 +35,24 @@ public class AxonMain {
 
         EventSourcingRepository<MessagesAggregate> repository = new EventSourcingRepository<>(MessagesAggregate.class, eventStore);
 
+        // Register the aggregate, and let it handle commands to produce events
         AggregateAnnotationCommandHandler<MessagesAggregate> handler = new AggregateAnnotationCommandHandler<>(
                 MessagesAggregate.class, repository);
         handler.subscribe(commandBus);
 
+        // register message event handler
         AnnotationEventListenerAdapter annotationEventListenerAdapter = new AnnotationEventListenerAdapter(new MessageEventHandler());
+        AnnotationEventListenerAdapter annotationEventListenerAdapter2 = new AnnotationEventListenerAdapter(new MessageEventHandler2());
         eventStore.subscribe(eventMessages -> eventMessages.forEach(e -> {
             try {
                 annotationEventListenerAdapter.handle(e);
             } catch (Exception e1) {
-                throw new RuntimeException(e1);
+                e1.printStackTrace();
+            }
+            try {
+                annotationEventListenerAdapter2.handle(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
         }));
 
