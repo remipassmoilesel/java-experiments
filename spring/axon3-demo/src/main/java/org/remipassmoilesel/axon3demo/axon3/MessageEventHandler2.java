@@ -16,7 +16,7 @@ public class MessageEventHandler2 {
 
     @EventHandler
     public void handle(MessageCreatedEvent event) {
-        logger.severe("Handling event " + event.getId() + " " + event.getText());
+        logger.severe("MessageEventHandler2 handling event " + event.getId() + " " + event.getText());
     }
 
 }

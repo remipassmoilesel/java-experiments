@@ -1,7 +1,6 @@
 package org.remipassmoilesel.axon3demo;
 
 import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.SimpleCommandBus;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
 import org.axonframework.config.DefaultConfigurer;
@@ -31,12 +30,6 @@ public class AxonConfiguration {
     }
 
     @Bean
-    public CommandBus commandBus() {
-        logger.severe("Instantiating SimpleCommandBus");
-        return new SimpleCommandBus();
-    }
-
-    @Bean
     public CommandGateway commandGateway(CommandBus commandBus) {
         logger.severe("Instantiating CommandGateway");
         return new DefaultCommandGateway(commandBus);
@@ -48,9 +41,9 @@ public class AxonConfiguration {
         return new SimpleEventBus();
     }
 
+    // This configuration should not be mandatory
     @Bean
-    public org.axonframework.config.Configuration configuration(CommandBus commandBus,
-                                                                EventStore eventStore) {
+    public org.axonframework.config.Configuration configuration(EventStore eventStore) {
         logger.severe("Configuring axon");
 
         EventHandlingConfiguration ehConfiguration = new EventHandlingConfiguration()
@@ -58,7 +51,6 @@ public class AxonConfiguration {
                 .registerEventHandler(conf -> new MessageEventHandler2());
 
         org.axonframework.config.Configuration configuration = DefaultConfigurer.defaultConfiguration()
-                .configureCommandBus(conf -> commandBus)
                 .configureEventStore(conf -> eventStore)
                 .configureAggregate(MessagesAggregate.class)
                 .registerModule(ehConfiguration)
