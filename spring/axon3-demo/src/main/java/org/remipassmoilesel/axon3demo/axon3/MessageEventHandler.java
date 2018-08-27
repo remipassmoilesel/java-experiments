@@ -10,6 +10,10 @@ public class MessageEventHandler {
 
     private static final Logger logger = Logger.getLogger(MessageEventHandler.class.getName());
 
+    public MessageEventHandler() {
+        logger.severe("MessageEventHandler instancied");
+    }
+
     @EventHandler
     public void handle(MessageCreatedEvent event) {
         logger.severe("Handling event " + event.getId() + " " + event.getText());

@@ -29,7 +29,7 @@ public class MessagesAggregate {
 
     @EventHandler
     public void on(MessageCreatedEvent event) {
-        logger.severe("MessagesAggregate -  " + event.getId());
+        logger.severe("MessagesAggregate event handler: " + event.getId());
         this.id = event.getId();
     }
 
