@@ -24,9 +24,15 @@ public class AxonConfiguration {
     private static final Logger logger = Logger.getLogger(AxonConfiguration.class.getName());
 
     @Bean
-    public EventStore eventStore() {
+    public EventStore eventStore(EmbeddedEventStore embeddedEventStore) {
         logger.severe("Instantiating InMemoryEventStorageEngine");
-        return new EmbeddedEventStore(new InMemoryEventStorageEngine());
+        return embeddedEventStore;
+    }
+
+    @Bean
+    public EventBus eventBus(EmbeddedEventStore embeddedEventStore) {
+        logger.severe("Instantiating InMemoryEventStorageEngine");
+        return embeddedEventStore;
     }
 
     @Bean
@@ -36,9 +42,8 @@ public class AxonConfiguration {
     }
 
     @Bean
-    public EventBus eventBus() {
-        logger.severe("Instantiating EventBus");
-        return new SimpleEventBus();
+    public EmbeddedEventStore embeddedEventStore(){
+        return new EmbeddedEventStore(new InMemoryEventStorageEngine());
     }
 
     // This configuration should not be mandatory
