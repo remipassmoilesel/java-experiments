@@ -23,6 +23,11 @@ public class AxonConfiguration {
 
     private static final Logger logger = Logger.getLogger(AxonConfiguration.class.getName());
 
+    //
+    // WARNING: event stores are event bus now, and we must take care that only one class
+    // is used as bus (only one bean)
+    //
+
     @Bean
     public EventStore eventStore(EmbeddedEventStore embeddedEventStore) {
         logger.severe("Instantiating InMemoryEventStorageEngine");
@@ -45,24 +50,24 @@ public class AxonConfiguration {
     public EmbeddedEventStore embeddedEventStore(){
         return new EmbeddedEventStore(new InMemoryEventStorageEngine());
     }
-
-    // This configuration should not be mandatory
-    @Bean
-    public org.axonframework.config.Configuration configuration(EventStore eventStore) {
-        logger.severe("Configuring axon");
-
-        EventHandlingConfiguration ehConfiguration = new EventHandlingConfiguration()
-                .registerEventHandler(conf -> new MessageEventHandler())
-                .registerEventHandler(conf -> new MessageEventHandler2());
-
-        org.axonframework.config.Configuration configuration = DefaultConfigurer.defaultConfiguration()
-                .configureEventStore(conf -> eventStore)
-                .configureAggregate(MessagesAggregate.class)
-                .registerModule(ehConfiguration)
-                .buildConfiguration();
-
-        configuration.start();
-        return configuration;
-    }
+//
+//    // This configuration should not be mandatory
+//    @Bean
+//    public org.axonframework.config.Configuration configuration(EventStore eventStore) {
+//        logger.severe("Configuring axon");
+//
+//        EventHandlingConfiguration ehConfiguration = new EventHandlingConfiguration()
+//                .registerEventHandler(conf -> new MessageEventHandler())
+//                .registerEventHandler(conf -> new MessageEventHandler2());
+//
+//        org.axonframework.config.Configuration configuration = DefaultConfigurer.defaultConfiguration()
+//                .configureEventStore(conf -> eventStore)
+//                .configureAggregate(MessagesAggregate.class)
+//                .registerModule(ehConfiguration)
+//                .buildConfiguration();
+//
+//        configuration.start();
+//        return configuration;
+//    }
 
 }
