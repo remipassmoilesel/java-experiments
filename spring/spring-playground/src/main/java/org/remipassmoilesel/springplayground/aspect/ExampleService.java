@@ -12,6 +12,7 @@ public class ExampleService {
     private Logger logger = LoggerFactory.getLogger(ExampleService.class);
 
     public List<String> getList(String item){
+        logger.info("GetList called with item: " + item);
         return Arrays.asList(item, item, item, item, item, item);
     }
 
