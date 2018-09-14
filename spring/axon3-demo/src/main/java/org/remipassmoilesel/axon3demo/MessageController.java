@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.UUID;
 
 @Controller
-public class AxonController {
+public class MessageController {
 
     @Autowired
     private CommandGateway commandGateway;

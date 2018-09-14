@@ -50,8 +50,8 @@ public class AxonConfiguration {
     public EmbeddedEventStore embeddedEventStore(){
         return new EmbeddedEventStore(new InMemoryEventStorageEngine());
     }
-//
-//    // This configuration should not be mandatory
+
+//    // Manual configuration
 //    @Bean
 //    public org.axonframework.config.Configuration configuration(EventStore eventStore) {
 //        logger.severe("Configuring axon");
