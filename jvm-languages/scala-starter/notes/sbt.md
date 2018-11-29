@@ -11,3 +11,8 @@ Aide, voir les versions utilisées:
 
     > help
     > about
+    
+
+Console scala interactive:
+
+    > console
