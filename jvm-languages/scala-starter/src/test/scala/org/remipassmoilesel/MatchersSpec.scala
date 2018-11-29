@@ -10,12 +10,16 @@ import org.scalatest._
   * http://www.scalatest.org/user_guide/using_matchers
   *
   */
-class MatchersTrialsSpec extends FunSpec with Matchers {
+class MatchersSpec extends FunSpec with Matchers {
 
-  describe("Equality") {
+  describe("Matchers experiments") {
 
     it("Should be equal") {
       "a string" should equal ("a string")
+    }
+
+    it("Should have correct size") {
+      1 to 3 should have size 3
     }
 
   }
