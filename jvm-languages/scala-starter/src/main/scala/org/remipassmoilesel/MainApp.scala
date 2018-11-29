@@ -1,7 +1,11 @@
 package org.remipassmoilesel
 
+import org.remipassmoilesel.person.PersonApp
+
 object MainApp extends App {
 
-  print("Hey !")
+  println("Starting main application")
+
+  PersonApp.run()
 
 }
