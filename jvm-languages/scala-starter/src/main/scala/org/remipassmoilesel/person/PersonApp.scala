@@ -7,6 +7,8 @@ object PersonApp {
   val dao = new PersonDao
 
   def run() = {
+    println("Running PersonApp")
+
     askPersons
     askPersonsWithError
   }
