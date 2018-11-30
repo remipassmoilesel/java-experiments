@@ -1,20 +1,20 @@
 package org.remipassmoilesel.restaurant
 
 import akka.actor.ActorRef
+import akka.pattern.ask
 import akka.util.Timeout
+import org.remipassmoilesel.restaurant.actors.GetMenu
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
-class RestaurantService(rootActor: ActorRef) {
+class RestaurantService(restaurantSupervisor: ActorRef) {
 
-  implicit val timeout = Timeout(1.seconds)
+  implicit val timeout: Timeout = Timeout(1.seconds)
 
   def getMenu: Future[Any] = {
-    Future {
-      throw new Exception("Not implemented")
-    }
+    restaurantSupervisor ? GetMenu
   }
 
 }

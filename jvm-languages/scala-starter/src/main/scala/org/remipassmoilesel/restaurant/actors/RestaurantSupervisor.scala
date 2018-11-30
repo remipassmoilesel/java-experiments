@@ -16,6 +16,12 @@ class RestaurantSupervisor extends Actor with ActorLogging {
 
   override def postStop(): Unit = log.info(s"Stopped")
 
-  override def receive = Actor.emptyBehavior
+  override def receive: Receive = {
+    case GetMenu =>
+      log.info("Received GetMenu request: " + sender())
+      waiter ! RequestCtr(GetMenu, sender())
+    case unexpectedMessage =>
+      sender() ! new Exception("Unexpected message: " + unexpectedMessage)
+  }
 
 }

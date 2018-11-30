@@ -6,6 +6,7 @@ import org.remipassmoilesel.restaurant.actors.{GetMenu, RequestCtr, ResponseCtr,
 import org.remipassmoilesel.restaurant.entities._
 import org.scalatest._
 
+
 class WaiterActorSpec extends TestKit(ActorSystem("WaiterActorSpec"))
   with ImplicitSender
   with FunSpecLike
@@ -16,14 +17,11 @@ class WaiterActorSpec extends TestKit(ActorSystem("WaiterActorSpec"))
     TestKit.shutdownActorSystem(system)
   }
 
-  describe("WaiterActorSpec") {
+  private val waiter = system.actorOf(WaiterActor.props("waiter-1"))
 
-    it("Should reply to GetMenu message") {
-      val waiter = system.actorOf(WaiterActor.props("waiter-1"))
-      waiter ! RequestCtr(GetMenu, testActor)
-      expectMsg(ResponseCtr(Menu(Articles.AllDishes, Articles.AllBeverages)))
-    }
-
+  it("Should reply to GetMenu request") {
+    waiter ! RequestCtr(GetMenu, testActor)
+    expectMsg(ResponseCtr(Menu(Articles.AllDishes, Articles.AllBeverages)))
   }
 
 }

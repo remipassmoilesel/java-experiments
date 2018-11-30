@@ -10,8 +10,8 @@ object RestaurantApp {
   def run() = {
     println("Running RestaurantApp")
 
-    val (actorSystem, actorRef) = startActorSystem()
-    val restaurantService = new RestaurantService(actorRef)
+    val (actorSystem, supervisor) = startActorSystem()
+    val restaurantService = new RestaurantService(supervisor)
 
     restaurantService.getMenu.onComplete(println)
   }
