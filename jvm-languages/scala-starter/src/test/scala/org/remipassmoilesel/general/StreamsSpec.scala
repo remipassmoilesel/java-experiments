@@ -1,4 +1,4 @@
-package org.remipassmoilesel
+package org.remipassmoilesel.general
 
 import org.scalatest._
 

@@ -1,8 +1,6 @@
-package org.remipassmoilesel
+package org.remipassmoilesel.general
 
 import org.scalatest._
-
-import scala.collection.JavaConverters._
 
 class ControlsSpec extends FunSpec with Matchers {
 

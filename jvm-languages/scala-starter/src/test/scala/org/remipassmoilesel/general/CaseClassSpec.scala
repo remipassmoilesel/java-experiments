@@ -1,11 +1,10 @@
-package org.remipassmoilesel
+package org.remipassmoilesel.general
 
 import java.util.UUID
 
 import org.scalatest.{FunSpec, Matchers}
 
 case class SimpleCaseClass(prop1: String, prop2: String) {
-  val id = UUID.randomUUID().toString
 }
 
 case class CaseClassWithUuid(prop1: String, prop2: String, uuid: String) {
@@ -37,6 +36,10 @@ class CaseClassSpec extends FunSpec with Matchers {
       val person1 = CaseClassWithUuid("foo", "bar")
       val person2 = CaseClassWithUuid("foo", "bar")
       val person3 = CaseClassWithUuid("bar", "foo")
+
+      person1.uuid.isEmpty should be(false)
+      person2.uuid.isEmpty should be(false)
+      person3.uuid.isEmpty should be(false)
 
       person1 should equal(person1)
       person1 should not equal(person2)

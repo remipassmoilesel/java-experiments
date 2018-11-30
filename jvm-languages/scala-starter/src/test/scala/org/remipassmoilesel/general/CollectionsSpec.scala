@@ -1,7 +1,7 @@
-package org.remipassmoilesel
+package org.remipassmoilesel.general
 
 import org.remipassmoilesel.person.PersonDao
-import org.scalatest.{AsyncFunSpec, FunSpec, Matchers}
+import org.scalatest.{FunSpec, Matchers}
 
 import scala.collection.mutable.ListBuffer
 
