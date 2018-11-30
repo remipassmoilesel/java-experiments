@@ -1,28 +1,25 @@
 package org.remipassmoilesel.restaurant
 
-import akka.actor.ActorSystem
+import akka.actor.{ActorRef, ActorSystem}
 import org.remipassmoilesel.restaurant.actors.RestaurantSupervisor
 
-import scala.io.StdIn
-
 object RestaurantApp {
+
+  import scala.concurrent.ExecutionContext.Implicits.global
 
   def run() = {
     println("Running RestaurantApp")
 
-    startActorSystem()
+    val (actorSystem, actorRef) = startActorSystem()
+    val restaurantService = new RestaurantService(actorRef)
+
+    restaurantService.getMenu.onComplete(println)
   }
 
-  def startActorSystem(): Unit = {
+  def startActorSystem(): (ActorSystem, ActorRef) = {
     val system = ActorSystem("restaurant-system")
-
-    try {
-      val supervisor = system.actorOf(RestaurantSupervisor.props(), "restaurant-supervisor")
-      // Exit the system after ENTER is pressed
-      StdIn.readLine()
-    } finally {
-      system.terminate()
-    }
+    val supervisor = system.actorOf(RestaurantSupervisor.props(), "restaurant-supervisor")
+    (system, supervisor)
   }
 
 }

@@ -9,13 +9,13 @@ object RestaurantSupervisor {
 
 
 class RestaurantSupervisor extends Actor with ActorLogging {
-  override def preStart(): Unit = log.info(s"$getName started")
 
-  override def postStop(): Unit = log.info(s"$getName stopped")
+  val waiter = context.actorOf(WaiterActor.props("waiter-1"))
+
+  override def preStart(): Unit = log.info(s"Started")
+
+  override def postStop(): Unit = log.info(s"Stopped")
 
   override def receive = Actor.emptyBehavior
 
-  def getName: String = {
-    classOf[RestaurantSupervisor].getSimpleName
-  }
 }
