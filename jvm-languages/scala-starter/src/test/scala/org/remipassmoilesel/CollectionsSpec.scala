@@ -1,9 +1,11 @@
 package org.remipassmoilesel
 
 import org.remipassmoilesel.person.PersonDao
-import org.scalatest.{AsyncFunSpec, Matchers}
+import org.scalatest.{AsyncFunSpec, FunSpec, Matchers}
 
-class CollectionsSpec extends AsyncFunSpec with Matchers {
+import scala.collection.mutable.ListBuffer
+
+class CollectionsSpec extends FunSpec with Matchers {
 
   val db = new PersonDao()
 
@@ -23,6 +25,13 @@ class CollectionsSpec extends AsyncFunSpec with Matchers {
       val list3 = list1 ::: list2
 
       list3.size should equal(list1.size + list2.size)
+    }
+
+    it("Append element to mutable list should work") {
+      var list1 = ListBuffer(1, 2, 3)
+      list1 += 4
+
+      list1.size should equal(4)
     }
   }
 
