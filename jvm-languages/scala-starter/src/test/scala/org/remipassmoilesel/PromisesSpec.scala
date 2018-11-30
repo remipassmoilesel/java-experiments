@@ -21,10 +21,15 @@ class PromisesSpec extends AsyncFunSpec with Matchers {
       persons.map(_.size should equal(3))
     }
 
-    it("getNamesAsyncFuture() should return a list of 25 persons") {
+    it("getNamesAsyncFuture() should throw if number of persons is too high") {
       recoverToSucceededIf[RuntimeException] {
         db.getNamesAsyncFuture(25)
       }
+    }
+
+    it("getDoubledNamesAsyncFuture() should return a list of 20 persons") {
+      val persons: Future[List[Person]] = db.getDoubledNamesAsyncFuture(10)
+      persons.map(_.size should equal(20))
     }
 
   }

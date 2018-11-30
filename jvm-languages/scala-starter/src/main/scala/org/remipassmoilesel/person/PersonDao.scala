@@ -2,16 +2,16 @@ package org.remipassmoilesel.person
 
 import java.util.concurrent.Executors
 
+import org.remipassmoilesel.Utils
+
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Random
 
 class PersonDao {
 
-  val random = Random
   implicit val execContext = instantiateExecutionContext()
 
   def getNames: List[Person] = {
-    randomSleep()
+    Utils.randomSleep()
     List(
       Person("Christeen", "Fairfax"),
       Person("Albertha", "Slade"),
@@ -30,6 +30,13 @@ class PersonDao {
     )
   }
 
+  def getDoubledNamesAsyncFuture(number: Integer) = {
+    for {
+      f1Res <- getNamesAsyncFuture(number)
+      f2Res <- getNamesAsyncFuture(number)
+    } yield (f1Res ++ f2Res)
+  }
+
   def getNamesAsyncFuture(number: Integer) = {
     Future {
       val persons = getNames
@@ -38,11 +45,6 @@ class PersonDao {
       }
       persons.slice(0, number)
     }
-  }
-
-  private def randomSleep(): Unit = {
-    val sleepTime = 200 + random.nextInt(400)
-    Thread.sleep(sleepTime)
   }
 
   private def instantiateExecutionContext(): ExecutionContext = {
