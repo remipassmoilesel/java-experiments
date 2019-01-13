@@ -27,7 +27,7 @@ class CodingGameDestroyMountains {
         @Override
         public String toString() {
             return "Mountain{" +
-                    "id=" + id +
+                    "height=" + id +
                     ", height=" + height +
                     '}';
         }
