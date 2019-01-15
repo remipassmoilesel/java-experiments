@@ -34,38 +34,51 @@ public class GraphChallenge {
         public String toString() {
             return "Node{" +
                     "id=" + id +
-                    ", links=" + links.stream().map(n -> n.id).collect(Collectors.toList()) +
+                    ", links=" + links +
                     '}';
         }
     }
 
     static class Graph {
         Node root;
+        final HashMap<Integer, Node> allNodes;
 
-        Graph() {
+        Graph(Integer totalVertices) {
             this.root = new Node(0);
+            this.allNodes = new HashMap<>(totalVertices);
         }
 
-        void addEdge(Node n1, Node n2) {
-            if (this.root.links.size() == 0) {
-                this.root.setLinks(n1, n2);
-            }
+        void addEdge(Integer nId1, Integer nId2) {
+            Node n1 = this.getNode(nId1);
+            Node n2 = this.getNode(nId2);
 
             n1.links.add(n2);
         }
 
+        private Node getNode(Integer id) {
+            if (id == 0) {
+                return this.root;
+            }
+
+            Node existing = this.allNodes.get(id);
+            if (existing != null) {
+                return this.allNodes.get(id);
+            }
+
+            Node newNode = new Node(id);
+            this.allNodes.put(id, newNode);
+            return newNode;
+        }
+
         Integer getMaximumDepth() {
-            return getMaximumDepth(this.root) - 1;
+            return getMaximumDepth(this.root);
         }
 
         Integer getMaximumDepth(Node rootN) {
+            if (rootN.links.size() < 1) {
+                return 0;
+            }
             int height = 0;
-            if (rootN == null) {
-                return height;
-            }
-            if (rootN.links == null) {
-                return 1;
-            }
             for (Node child : rootN.links) {
                 height = Math.max(height, getMaximumDepth(child));
             }
@@ -76,14 +89,28 @@ public class GraphChallenge {
 
     public static void main(String[] args) {
 
-        Graph graph = new Graph();
-        graph.addEdge(new Node(1), new Node(2));
-        graph.addEdge(new Node(2), new Node(3));
-        graph.addEdge(new Node(3), new Node(4));
-        graph.addEdge(new Node(3), new Node(7));
-        graph.addEdge(new Node(4), new Node(5));
-        graph.addEdge(new Node(4), new Node(6));
-        graph.addEdge(new Node(7), new Node(8));
+        Graph graph = new Graph(21);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 8);
+        graph.addEdge(0, 15);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 5);
+        graph.addEdge(2, 3);
+        graph.addEdge(2, 4);
+        graph.addEdge(5, 6);
+        graph.addEdge(5, 7);
+        graph.addEdge(8, 9);
+        graph.addEdge(8, 12);
+        graph.addEdge(9, 10);
+        graph.addEdge(9, 11);
+        graph.addEdge(12, 13);
+        graph.addEdge(12, 14);
+        graph.addEdge(15, 16);
+        graph.addEdge(15, 19);
+        graph.addEdge(16, 17);
+        graph.addEdge(16, 18);
+        graph.addEdge(19, 20);
+        graph.addEdge(19, 21);
 
         Integer maxDepth = graph.getMaximumDepth();
 
