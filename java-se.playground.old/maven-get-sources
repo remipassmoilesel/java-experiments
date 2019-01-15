@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# samedi 7 mai 2016, 15:03:47 (UTC+0200)
-
-echo "Téléchargement des sources et de la javadoc des dépendances Maven"
-
-mvn dependency:sources
-mvn dependency:resolve -Dclassifier=javadoc
