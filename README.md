@@ -1,5 +1,5 @@
-# Java experiments
+# JVM experiments
 
-Various notes and experimentations on Java technologies.
+Various notes and experimentations on JVM technologies.
 
-Nothing interesting here, some code are very very old and ugly ...... :O
+Nothing interesting here, code is very very old and ugly ...... :O

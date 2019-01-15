@@ -1,4 +1,4 @@
-# JUava SE
+# Java SE
 Divers travaux rapides et memos sur Java SE.
 
 Disponible sous la forme d'un projet Maven.
