@@ -23,7 +23,8 @@ fun main() {
 }
 
 fun prettier(events: List<Event>): List<Event> {
-    return events.filter { it.date.trim().isNotEmpty() }
+    events.filter { it.date.trim().isNotEmpty() }
+    return events.filter { event -> event.date.trim().isNotEmpty() }
 }
 
 fun forIn() {
@@ -55,3 +56,34 @@ fun elvisPlusSafeCall(username: String?) {
     val usernameLength = username?.length;
     println(usernameLength)
 }
+
+fun mapExample() {
+
+    val unitsString = arrayOf(
+            "zero", "one", "two", "three", "four", "five",
+            "six", "seven", "eight", "nine"
+    )
+
+    fun dateToDateString(date: String): String = date
+            .map { it.toString().toInt() }
+            .map { unitsString[it] }.joinToString(" ")
+
+
+    fun prettier(events: List<Event>): List<Event> {
+        return events
+                .filter { it.date.isNotBlank() }
+                .map { it.copy(date = dateToDateString(it.date)) }
+    }
+
+}
+
+fun reduceExample() {
+    val unitsString = arrayOf(
+            "zero", "one", "two", "three", "four", "five",
+            "six", "seven", "eight", "nine"
+    )
+
+    val concatenated = unitsString.map { """- $it -""" }.reduce { acc, str -> acc + str }
+    println(concatenated)
+}
+
