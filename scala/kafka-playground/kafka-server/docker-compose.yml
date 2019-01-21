@@ -1,4 +1,6 @@
 
+# Not for production use !
+
 # Taken from: https://github.com/wurstmeister/kafka-docker
 
 version: '3'
