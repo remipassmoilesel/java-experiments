@@ -1,4 +1,4 @@
-package org.remipassmoilesel.losttime;
+package org.remipassmoilesel.lightplayground.losttime;
 
 import java.util.*;
 import java.util.stream.Collectors;
