@@ -1,4 +1,4 @@
-package org.remipassmoilesel;
+package org.remipassmoilesel.losttime;
 
 import java.util.*;
 import java.io.*;

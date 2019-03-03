@@ -1,4 +1,4 @@
-package org.remipassmoilesel;
+package org.remipassmoilesel.losttime;
 
 class MainSandBox {
 
