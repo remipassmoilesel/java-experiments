@@ -3,7 +3,7 @@ package org.remipassmoilesel.lightplayground.vavr;
 import lombok.val;
 import org.junit.Test;
 
-import static com.google.common.base.Predicates.instanceOf;
+import static io.vavr.Predicates.instanceOf;
 import static io.vavr.API.*;
 import static io.vavr.Predicates.*;
 import static org.hamcrest.MatcherAssert.assertThat;
