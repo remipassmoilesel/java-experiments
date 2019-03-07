@@ -1,0 +1,32 @@
+# JMH version: 1.20
+# VM version: JDK 10.0.2, VM 10.0.2+13-Ubuntu-1ubuntu0.18.04.4
+# VM invoker: /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+# VM options: <none>
+# Warmup: 20 iterations, 1000 ms each
+# Measurement: 20 iterations, 1000 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.sample.VavrBenchmark.arrays
+
+....
+
+# Run complete. Total time: 00:26:56
+
+Benchmark                          Mode  Cnt       Score      Error  Units
+VavrBenchmark.arrays              thrpt  200     107,642 ±    0,484  ops/s
+VavrBenchmark.lists               thrpt  200      97,017 ±    1,568  ops/s
+
+...
+
+Result "org.sample.VavrBenchmark.vavrLists":
+  1190,917 ±(99.9%) 3,726 ops/s [Average]
+  (min, avg, max) = (1115,268, 1190,917, 1223,881), stdev = 15,776
+  CI (99.9%): [1187,191, 1194,643] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:13:57
+
+Benchmark                          Mode  Cnt     Score   Error  Units
+VavrBenchmark.vavrListToJavaList  thrpt  200     7,235 ± 0,091  ops/s
+VavrBenchmark.vavrLists           thrpt  200  1190,917 ± 3,726  ops/s
