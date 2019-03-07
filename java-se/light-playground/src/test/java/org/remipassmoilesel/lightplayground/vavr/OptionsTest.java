@@ -19,6 +19,12 @@ public class OptionsTest {
     }
 
     @Test
+    public void map() {
+        Option.of("test string")
+                .map(value -> value.toUpperCase());
+    }
+
+    @Test
     public void list() {
         List<Object> nonNullValues = List.of(Option.of(null), Option.of(1), Option.of(2), Option.of("e"))
                 .flatMap(o -> o.toStream());
