@@ -35,5 +35,11 @@ VavrBenchmark.vavrLists           thrpt  200  1190,917 ± 3,726  ops/s
 # Run complete. Total time: 00:03:34
 
 Benchmark                          Mode  Cnt     Score    Error  Units
-VavrBenchmark.vavrListAsJava      thrpt   50  1485,870 ± 61,518  ops/s
+VavrBenchmark.vavrListAsJava      thrpt   50  1485,870 ± 61,518  ops/s  <-  :D :D
 VavrBenchmark.vavrListToJavaList  thrpt   50     7,069 ±  0,437  ops/s
+
+# Run complete. Total time: 00:03:25
+
+Benchmark                              Mode  Cnt      Score     Error  Units
+VavrBenchmark.javaStream              thrpt   50  12269,163 ± 340,639  ops/s
+VavrBenchmark.vavrStreamFromJavaList  thrpt   50   1798,349 ±  31,975  ops/s
