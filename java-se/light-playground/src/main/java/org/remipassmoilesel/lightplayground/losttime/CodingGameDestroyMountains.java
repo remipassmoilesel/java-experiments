@@ -1,5 +1,7 @@
 package org.remipassmoilesel.lightplayground.losttime;
 
+import lombok.val;
+
 import java.util.*;
 import java.io.*;
 import java.math.*;
@@ -42,7 +44,7 @@ class CodingGameDestroyMountains {
             List<Mountain> sortedMountain = IntStream.range(0, 8)
                     .boxed()
                     .map(id -> {
-                        final var height = in.nextInt();
+                        val height = in.nextInt();
                         return new Mountain(id, height);
                     })
                     .sorted((m1, m2) -> {
