@@ -33,11 +33,10 @@ public class TryTest {
         Try<String> res = Try.ofSupplier(() -> client.get("http://somewhere"));
         assertThat(res.isSuccess(), is(true));
     }
-    
+
     @Test
     public void failedTry() {
         val res = Try.ofSupplier(() -> client.get("http://nowhere"));
-
         assertThat(res.isFailure(), is(true));
 
         val value = res.recover(throwable -> Match(throwable).of(
