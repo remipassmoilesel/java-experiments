@@ -115,5 +115,5 @@ public class StreamTest {
         val grouped = Stream.from(0).take(3).intersperse(5).toList();
         assertThat(grouped, equalTo(List.of(0, 5, 1, 5, 2)));
     }
-    
+
 }

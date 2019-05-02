@@ -47,4 +47,14 @@ public class OptionsTest {
 
     }
 
+    @Test
+    public void toList() {
+
+        val nullList = Option.of(null).toList();
+        val nonNullList = Option.of("one").toList();
+
+        assertThat(nullList.size(), equalTo(0));
+        assertThat(nonNullList.size(), equalTo(1));
+    }
+
 }
