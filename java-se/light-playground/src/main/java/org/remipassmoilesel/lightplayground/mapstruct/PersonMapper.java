@@ -1,6 +1,5 @@
 package org.remipassmoilesel.lightplayground.mapstruct;
 
-import io.vavr.collection.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

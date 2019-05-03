@@ -57,4 +57,14 @@ public class OptionsTest {
         assertThat(nonNullList.size(), equalTo(1));
     }
 
+    @Test
+    public void peek() {
+
+        val none = Option.of(null);
+        val defined = Option.of("Hey !");
+
+        none.peek(value -> System.out.println(value));
+        defined.peek(value -> System.out.println(value));
+    }
+
 }
