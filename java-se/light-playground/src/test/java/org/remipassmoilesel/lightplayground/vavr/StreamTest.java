@@ -116,4 +116,46 @@ public class StreamTest {
         assertThat(grouped, equalTo(List.of(0, 5, 1, 5, 2)));
     }
 
+    @Test
+    public void reduce() {
+        val reduced = Stream.from(0).take(1000)
+                .reduce((accumulator, value) -> accumulator + value);
+        assertThat(reduced, equalTo(499500));
+    }
+
+    @Test
+    public void sort() {
+        val list = List.of(
+                Tuple.of(4, 3),
+                Tuple.of(1, 5),
+                Tuple.of(8, 9)
+        );
+        val sorted = list.sortBy(tuple -> -tuple._1).map(tuple -> tuple._1);
+
+        assertThat(sorted, equalTo(List.of(8, 4, 1)));
+    }
+
+    @Test
+    public void sort2() {
+        val list = List.of(
+                Tuple.of(4, 3),
+                Tuple.of(4, 2),
+                Tuple.of(4, 1),
+                Tuple.of(1, 5),
+                Tuple.of(1, 4),
+                Tuple.of(8, 6),
+                Tuple.of(8, 5),
+                Tuple.of(7, 9),
+                Tuple.of(7, 9)
+        );
+        val sorted = list
+                .sortBy(tuple -> -tuple._1)
+                .groupBy(tuple -> tuple._1)
+                .flatMap(group -> group._2.sortBy(tuple -> -tuple._2))
+                .map(tuple -> tuple._1 + " " + tuple._2)
+                .toList();
+
+        assertThat(sorted, equalTo(List.of("8 6", "8 5", "7 9", "7 9", "4 3", "4 2", "4 1", "1 5", "1 4")));
+    }
+
 }

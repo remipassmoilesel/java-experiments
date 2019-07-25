@@ -78,4 +78,17 @@ public class FutureTest {
         assertThat(res, equalTo(160));
     }
 
+    @Test
+    public void futureMap() {
+
+        val futures = Future.sequence(
+                Stream.from(0).take(10)
+                        .map(i -> computeInFuture.apply(i, i))
+                        .collect(List.collector())
+        );
+
+        val res = futures.get().fold(0, (a, b) -> a + b);
+        assertThat(res, equalTo(160));
+    }
+
 }

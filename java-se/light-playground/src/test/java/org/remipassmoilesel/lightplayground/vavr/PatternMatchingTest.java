@@ -3,7 +3,6 @@ package org.remipassmoilesel.lightplayground.vavr;
 import lombok.val;
 import org.junit.Test;
 
-import static io.vavr.Predicates.instanceOf;
 import static io.vavr.API.*;
 import static io.vavr.Predicates.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -61,6 +60,44 @@ public class PatternMatchingTest {
         );
 
         assertThat(range, equalTo(4));
+    }
+
+    @Test
+    public void withStrings() {
+        final String value = "5";
+
+        String range = Match(value).of(
+                Case($("2"), val -> val + "2"),
+                Case($("5"), val -> val + "5")
+        );
+
+        assertThat(range, equalTo("55"));
+    }
+
+    public enum TestEnum {
+        ONE("11"), TWO("22");
+
+        private final String value;
+
+        TestEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    @Test
+    public void withEnum() {
+        final String value = TestEnum.ONE.getValue();
+
+        String range = Match(value).of(
+                Case($(TestEnum.ONE.getValue()), val -> val + "-1"),
+                Case($(TestEnum.TWO.getValue()), val -> val + "-2")
+        );
+
+        assertThat(range, equalTo("11-1"));
     }
 
 }
