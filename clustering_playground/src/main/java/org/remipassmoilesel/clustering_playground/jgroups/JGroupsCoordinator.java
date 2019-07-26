@@ -16,30 +16,26 @@ import java.time.LocalDateTime;
 
 import static io.vavr.API.unchecked;
 
+// TODO: test an RPC call with Message Dispatcher
+
 @Component
 @Slf4j
 @Getter
 @Setter
-public class JGroupsCoordinator extends ReceiverAdapter {
+public class JGroupsCoordinator {
 
     private String clusterName = "cluster-playground:cluster-name";
     private String nodeName = String.format("%s:node-%s", clusterName, LocalDateTime.now());
     private boolean master = false;
-    private List<MessageListener> messageListeners = List.empty();
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private JChannel channel;
+    private CoordinatorReceiver receiver;
 
     @PostConstruct
-    public JChannel setup() throws Exception {
-        channel = new JChannel("src/main/resources/jgroups/udp.xml")
-                .setDiscardOwnMessages(true)
-                .setReceiver(this)
-                .setName(nodeName);
-
-        channel.connect(clusterName);
-        return channel;
+    public void setup() throws Exception {
+        setupChannel();
     }
 
     @PreDestroy
@@ -47,21 +43,14 @@ public class JGroupsCoordinator extends ReceiverAdapter {
         this.channel.close();
     }
 
-    @Override
-    public void viewAccepted(View clusterView) {
-        log.info(String.format("New cluster view received: %s", clusterView));
-        masterElection(clusterView);
-    }
+    private void setupChannel() throws Exception {
+        this.receiver = new CoordinatorReceiver();
+        channel = new JChannel("src/main/resources/jgroups/udp.xml")
+                .setDiscardOwnMessages(true)
+                .setReceiver(receiver)
+                .setName(nodeName);
 
-    @Override
-    public void receive(Message message) {
-        messageListeners.forEach(listener -> {
-            try {
-                listener.receive(message);
-            } catch (Exception err) {
-                log.error(err.getMessage(), err);
-            }
-        });
+        channel.connect(clusterName);
     }
 
     private void masterElection(View clusterView) {
@@ -76,11 +65,38 @@ public class JGroupsCoordinator extends ReceiverAdapter {
     }
 
     public void onMessage(MessageListener listener) {
-        this.messageListeners = this.messageListeners.append(listener);
+        this.receiver.addListener(listener);
     }
 
     public void broadcastMessage(byte[] bytes) {
         val message = new Message(null, bytes);
         unchecked(() -> channel.send(message)).apply();
     }
+
+    private class CoordinatorReceiver extends ReceiverAdapter {
+
+        private List<MessageListener> messageListeners = List.empty();
+
+        @Override
+        public void viewAccepted(View clusterView) {
+            log.info(String.format("New cluster view received: %s", clusterView));
+            masterElection(clusterView);
+        }
+
+        @Override
+        public void receive(Message message) {
+            messageListeners.forEach(listener -> {
+                try {
+                    listener.receive(message);
+                } catch (Exception err) {
+                    log.error(err.getMessage(), err);
+                }
+            });
+        }
+
+        public void addListener(MessageListener listener) {
+            this.messageListeners = this.messageListeners.append(listener);
+        }
+    }
+
 }

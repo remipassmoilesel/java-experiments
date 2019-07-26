@@ -1,9 +1,11 @@
 # Clustering playground
 
+This is a very quick example of master/worker election. For something more robust see: https://github.com/belaban/jgroups-raft
+
 Run:
 
-    $ ./gradlew bootRun
-    
+    $ ./gradlew bootRun    
+
 
 ## Documentation
 
