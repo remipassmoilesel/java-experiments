@@ -6,6 +6,10 @@
  * User Manual available at https://docs.gradle.org/5.5.1/userguide/tutorial_java_projects.html
  */
 
+application {
+    mainClassName = "jgroups.k8s.JGroupsK8s"
+}
+
 plugins {
     idea
     java
@@ -33,9 +37,4 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("junit:junit:4.12")
-}
-
-application {
-    // Define the main class for the application
-    mainClassName = "jgroups.k8s.App"
 }

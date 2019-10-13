@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jgroups-k8s
+  labels:
+    app: jgroups-k8s
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jgroups-k8s
+  template:
+    metadata:
+      labels:
+        app: jgroups-k8s
+    spec:
+      containers:
+        - name: jgroups-k8s
+          image: remipassmoilesel/jgroups-k8s:0.1
+          ports:
+            - containerPort: 9000
