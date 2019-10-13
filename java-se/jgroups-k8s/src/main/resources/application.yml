@@ -1,3 +1,13 @@
 ---
 server:
   port: 9000
+
+jgroups-k8s:
+  config-path: "/jgroups/udp.xml"
+
+---
+spring:
+  profiles: kubernetes
+
+jgroups-k8s:
+  config-path: "/jgroups/dns.xml"

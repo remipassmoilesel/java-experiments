@@ -4,6 +4,7 @@ import io.vavr.collection.Stream;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.jgroups.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -22,19 +23,24 @@ public class JGroupsCoordinator {
         MASTER, WORKER
     }
 
-    private final static String CONFIG_DEV = "/jgroups/udp.xml";
-    private final static String CONFIG_PROD = "/jgroups/dns.xml";
-
     private NodeRole state = NodeRole.WORKER;
-    private JChannel channel;
+
     private CopyOnWriteArrayList<ClusterStateListener> listeners = new CopyOnWriteArrayList<>();
     private CopyOnWriteArrayList<MessageListener> messageListeners = new CopyOnWriteArrayList<>();
 
+    private final String configPath;
+    private JChannel channel;
+
+    public JGroupsCoordinator(@Value("${jgroups-k8s.config-path}") String configPath) {
+        this.configPath = configPath;
+    }
+
     @PostConstruct
     public JChannel setup() throws Exception {
-        this.channel = new JChannel(this.getClass().getResourceAsStream(CONFIG_DEV));
+        log.warn(String.format("Setting up JGroups with configuration: %s", configPath));
+        this.channel = new JChannel(this.getClass().getResourceAsStream(configPath));
         channel.setDiscardOwnMessages(true);
-        channel.setReceiver(new ReceiverAdapter(){
+        channel.setReceiver(new ReceiverAdapter() {
 
             @Override
             public void viewAccepted(View clusterView) {

@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jgroups-k8s
+  namespace: jgroups-k8s
   labels:
     app: jgroups-k8s
 spec:
@@ -20,3 +21,6 @@ spec:
           image: remipassmoilesel/jgroups-k8s:0.1
           ports:
             - containerPort: 9000
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "kubernetes"

@@ -26,11 +26,11 @@ public class LeaderElection implements ClusterStateListener {
 
     @Override
     public void onBecameMaster() {
-        log.warn("    public void onBecameMaster() {");
+        log.warn("I am master !");
     }
 
     @Override
     public void onBecameWorker() {
-        log.warn("    public void onBecameWorker() {");
+        log.warn("I am worker !");
     }
 }
