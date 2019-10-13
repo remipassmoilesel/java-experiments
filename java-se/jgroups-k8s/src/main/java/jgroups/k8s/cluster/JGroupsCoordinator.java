@@ -23,7 +23,7 @@ public class JGroupsCoordinator {
         MASTER, WORKER
     }
 
-    private NodeRole state = NodeRole.WORKER;
+    private NodeRole nodeRole = NodeRole.WORKER;
 
     private CopyOnWriteArrayList<ClusterStateListener> listeners = new CopyOnWriteArrayList<>();
     private CopyOnWriteArrayList<MessageListener> messageListeners = new CopyOnWriteArrayList<>();
@@ -36,34 +36,13 @@ public class JGroupsCoordinator {
     }
 
     @PostConstruct
-    public JChannel setup() throws Exception {
+    public void setup() throws Exception {
         log.warn(String.format("Setting up JGroups with configuration: %s", configPath));
         this.channel = new JChannel(this.getClass().getResourceAsStream(configPath));
         channel.setDiscardOwnMessages(true);
-        channel.setReceiver(new ReceiverAdapter() {
-
-            @Override
-            public void viewAccepted(View clusterView) {
-                synchronized (JGroupsCoordinator.this.state) {
-                    JGroupsCoordinator.this.state = getNodeRole(clusterView);
-                }
-                notifyListeners(JGroupsCoordinator.this.state);
-            }
-
-            @Override
-            public void receive(Message message) {
-                messageListeners.forEach(listener -> {
-                    try {
-                        listener.receive(message);
-                    } catch (Exception err) {
-                        log.error(err.getMessage(), err);
-                    }
-                });
-            }
-        });
+        channel.setReceiver(new Receiver());
         channel.setName("local-cluster:node-" + LocalDateTime.now());
         channel.connect("local-cluster");
-        return channel;
     }
 
     public void broadcastMessage(byte[] bytes) {
@@ -73,14 +52,14 @@ public class JGroupsCoordinator {
 
     public void addClusterStateListener(ClusterStateListener listener) {
         this.listeners.add(listener);
-        this.notifyListeners(this.state);
+        this.notifyListeners(this.nodeRole);
     }
 
     private void notifyListeners(NodeRole role) {
         if (NodeRole.MASTER == role) {
-            listeners.forEach(listener -> listener.onBecameMaster());
+            listeners.forEach(listener -> listener.onMasterRole());
         } else {
-            listeners.forEach(listener -> listener.onBecameWorker());
+            listeners.forEach(listener -> listener.onWorkerRole());
         }
     }
 
@@ -89,6 +68,28 @@ public class JGroupsCoordinator {
                 .sortBy(addr -> addr.toString())
                 .indexOf(this.channel.getAddress()) == 0;
         return isMaster ? NodeRole.MASTER : NodeRole.WORKER;
+    }
+
+    private class Receiver extends ReceiverAdapter {
+
+        @Override
+        public void viewAccepted(View clusterView) {
+            synchronized (JGroupsCoordinator.this.nodeRole) {
+                JGroupsCoordinator.this.nodeRole = getNodeRole(clusterView);
+            }
+            notifyListeners(JGroupsCoordinator.this.nodeRole);
+        }
+
+        @Override
+        public void receive(Message message) {
+            messageListeners.forEach(listener -> {
+                try {
+                    listener.receive(message);
+                } catch (Exception err) {
+                    log.error(err.getMessage(), err);
+                }
+            });
+        }
     }
 
 }

@@ -10,12 +10,12 @@ import javax.annotation.PostConstruct;
 
 @Slf4j
 @Component
-public class LeaderElection implements ClusterStateListener {
+public class ClusterNode implements ClusterStateListener {
 
     private final JGroupsCoordinator coordinator;
 
     @Autowired
-    public LeaderElection(JGroupsCoordinator coordinator) {
+    public ClusterNode(JGroupsCoordinator coordinator) {
         this.coordinator = coordinator;
     }
 
@@ -25,12 +25,12 @@ public class LeaderElection implements ClusterStateListener {
     }
 
     @Override
-    public void onBecameMaster() {
+    public void onMasterRole() {
         log.warn("I am master !");
     }
 
     @Override
-    public void onBecameWorker() {
+    public void onWorkerRole() {
         log.warn("I am worker !");
     }
 }
