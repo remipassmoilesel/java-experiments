@@ -7,24 +7,31 @@
  */
 
 plugins {
-    // Apply the java plugin to add support for Java
+    idea
     java
-
-    // Apply the application plugin to add support for building a CLI application
     application
+    id("org.springframework.boot").version("2.1.6.RELEASE")
 }
+
+apply(plugin = "io.spring.dependency-management");
 
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    // This dependency is used by the application.
     implementation("com.google.guava:guava:27.1-jre")
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.jgroups:jgroups:4.1.1.Final")
+    implementation("io.vavr:vavr:0.10.0")
 
-    // Use JUnit test framework
+    compileOnly("org.projectlombok:lombok:1.18.8")
+    annotationProcessor("org.projectlombok:lombok:1.18.8")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("junit:junit:4.12")
 }
 
