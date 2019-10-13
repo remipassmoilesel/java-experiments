@@ -7,6 +7,11 @@ spec:
   selector:
     app: jgroups-k8s
   ports:
-    - protocol: TCP
+    - name: "http"
+      protocol: TCP
       port: 9000
       targetPort: 9000
+    - name: "jgroups"
+      protocol: UDP
+      port: 7800
+      targetPort: 7800

@@ -31,6 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jgroups:jgroups:4.1.1.Final")
     implementation("io.vavr:vavr:0.10.0")
+    implementation("org.jgroups.kubernetes:jgroups-kubernetes:1.0.13.Final")
 
     compileOnly("org.projectlombok:lombok:1.18.8")
     annotationProcessor("org.projectlombok:lombok:1.18.8")

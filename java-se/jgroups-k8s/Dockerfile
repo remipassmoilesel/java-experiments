@@ -1,5 +1,7 @@
 FROM azul/zulu-openjdk-alpine:12
 
+RUN apk update && apk add bind-tools curl
+
 RUN mkdir /app
 WORKDIR /app
 

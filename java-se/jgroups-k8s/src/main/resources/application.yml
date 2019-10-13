@@ -10,4 +10,4 @@ spring:
   profiles: kubernetes
 
 jgroups-k8s:
-  config-path: "/jgroups/dns.xml"
+  config-path: "/jgroups/k8s.xml"
