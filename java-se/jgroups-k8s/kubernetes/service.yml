@@ -12,6 +12,6 @@ spec:
       port: 9000
       targetPort: 9000
     - name: "jgroups"
-      protocol: UDP
+      protocol: TCP
       port: 7800
       targetPort: 7800

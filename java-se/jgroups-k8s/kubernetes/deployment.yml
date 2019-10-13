@@ -21,9 +21,13 @@ spec:
         - name: jgroups-k8s
           image: remipassmoilesel/jgroups-k8s:0.1
           ports:
+            - containerPort: 7800
             - containerPort: 9000
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: kubernetes
             - name: JGROUPS_K8S_NAMESPACE
-              value: jgroups-k8s
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
