@@ -26,6 +26,8 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: kube-ping
+            - name: JGROUPS_K8S_DNS_QUERY
+              value: jgroups-k8s
             - name: JGROUPS_K8S_NAMESPACE
               valueFrom:
                 fieldRef:

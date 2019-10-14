@@ -7,6 +7,13 @@ jgroups-k8s:
 
 ---
 spring:
+  profiles: dns-ping
+
+jgroups-k8s:
+  config-path: "/jgroups/dns_ping.xml"
+
+---
+spring:
   profiles: kube-ping
 
 jgroups-k8s:
