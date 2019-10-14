@@ -7,7 +7,7 @@ jgroups-k8s:
 
 ---
 spring:
-  profiles: kubernetes
+  profiles: kube-ping
 
 jgroups-k8s:
-  config-path: "/jgroups/k8s.xml"
+  config-path: "/jgroups/kube_ping.xml"

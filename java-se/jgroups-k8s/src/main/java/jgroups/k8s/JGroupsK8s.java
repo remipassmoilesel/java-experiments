@@ -8,6 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class JGroupsK8s {
 
+	// Try: https://github.com/slaskawi/jgroups-dns-ping-example/blob/master/src/main/resources/config-test.xml
+
 	public static void main(String[] args) {
 		SpringApplication.run(JGroupsK8s.class, args);
 	}
